@@ -3,15 +3,24 @@ import 'appointment.dart';
 import 'doctor.dart';
 
 class Hospital {
-  final List<Patient> _patient = [];
-  final List<Doctor> _doctor = [];
+  final List<Patient> _patients = [];
+  final List<Doctor> _doctors = [];
   final List<Appointment> _appointments = [];
 
-  void addPatient(Patient p) => _patient.add(p);
-  void addDoctor(Doctor d) => _doctor.add(d);
+  void addPatient(Patient p) => _patients.add(p);
+  void addDoctor(Doctor d) => _doctors.add(d);
 
-  List<Appointment> getAppointmentForPatient(Patient p) => p.appointments;
-  List<Appointment> getAppointmentForDoctor(Doctor d) => d.appointments;
+  List<Appointment> getAppointmentForPatient(String id){
+    final patient = _patients.firstWhere((p) => p.id == id,
+    orElse: () => throw Exception('Patient not found'));
+    return patient.appointments;
+  }
+
+  List<Appointment> getAppointmentForDoctor(String id){
+    final doctor = _doctors.firstWhere((d) => d.id == id,
+    orElse: () => throw Exception('Doctor not found'));
+    return doctor.appointments;
+  }
 
   //AI Generated
   void scheduleAppointment(Appointment appt){
@@ -27,6 +36,8 @@ class Hospital {
     final appt = _appointments.firstWhere((a) => a.id == id,
       orElse: () => throw Exception('Appointment not found'));
     _appointments.remove(appt);
+    // appt.patient._appointments.remove(appt);
+    // appt.doctor._appointments.remove(appt);
   }
 
 }
