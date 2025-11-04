@@ -7,17 +7,17 @@ class Appointment{
   final DateTime _dateTime;
   final Patient _patient;
   final Doctor _doctor;
-  AppointmentStatus _appointmentStatus;
+  AppointmentStatus _status;
 
-  Appointment(this._id, this._dateTime, this._patient, this._doctor, this._appointmentStatus);
+  Appointment(this._id, this._dateTime, this._patient, this._doctor, this._status);
 
   String get id => _id;
   DateTime get dateTime => _dateTime;
   Patient get patient => _patient;
   Doctor get doctor => _doctor;
-  AppointmentStatus get appointmentStatus => _appointmentStatus;
+  AppointmentStatus get appointmentStatus => _status;
 
-  set appointmentStatus(AppointmentStatus status) => _appointmentStatus = status;
+  set appointmentStatus(AppointmentStatus status) => status = _status;
 
 }
 

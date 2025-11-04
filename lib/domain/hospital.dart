@@ -36,8 +36,8 @@ class Hospital {
     final appt = _appointments.firstWhere((a) => a.id == id,
       orElse: () => throw Exception('Appointment not found'));
     _appointments.remove(appt);
-    // appt.patient._appointments.remove(appt);
-    // appt.doctor._appointments.remove(appt);
+    appt.patient.removeAppointment(appt);
+    appt.doctor.removeAppointment(appt);
   }
 
 }

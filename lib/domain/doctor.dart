@@ -10,8 +10,8 @@ class Doctor extends Staff{
 
   void addAppointment(Appointment appt) => _appointments.add(appt);
 
-  bool isAvailable(DateTime time){
-    return !_appointments.any((a) => a.dateTime.isAtSameMomentAs(time));
-  }
+  bool isAvailable(DateTime time) => !_appointments.any((a) => a.dateTime.isAtSameMomentAs(time));
   
+  void removeAppointment(Appointment appt) => _appointments.remove(appt);
+
 }

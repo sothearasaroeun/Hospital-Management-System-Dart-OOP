@@ -1,6 +1,5 @@
 import 'appointment.dart';
-
-enum Gender {male, female, preferNotToSay}
+import 'staff.dart';
 
 class Patient {
   final String _id;
@@ -23,4 +22,5 @@ class Patient {
   
   void addAppointment(Appointment appt) => _appointments.add(appt);
   
+  void removeAppointment(Appointment appt) => _appointments.remove(appt);
 }
