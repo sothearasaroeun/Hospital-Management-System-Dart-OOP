@@ -10,13 +10,13 @@ class Patient {
   final Gender _gender;
   final List<Appointment> _appointments = [];
 
-  Patient(this._id, this._name, this._phoneNumber, this._dob, this._email, this._gender);
+  Patient(this._id, this._name, this._phoneNumber, this._email, this._dob, this._gender);
 
   String get id => _id;
   String get name => _name;
   String get phoneNumber => _phoneNumber;
-  DateTime get dob => _dob;
   String get email => _email;
+  DateTime get dob => _dob;
   Gender get gender => _gender;
   List<Appointment> get appointments => List.unmodifiable(_appointments);
   
