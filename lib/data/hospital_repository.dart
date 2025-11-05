@@ -31,6 +31,7 @@ class HospitalRepository {
         DateTime.parse(p['dob'] as String), 
         _genderFromString(p['gender'] as String),
         );
+        if (_hospital.patients.any((pt) => pt.id == patient.id)) continue;
         _hospital.addPatient(patient);
     }
 
@@ -44,6 +45,7 @@ class HospitalRepository {
         _genderFromString(d['gender'] as String),
         <DateTime, WorkingHours>{},
       );
+      if (_hospital.doctors.any((doc) => doc.id == doctor.id)) continue;
       _hospital.addDoctor(doctor);
     }
 
@@ -52,6 +54,7 @@ class HospitalRepository {
       final doctor = _hospital.doctors.firstWhere((d) => d.id == a['doctorId'], orElse: () => throw Exception('Doctor not found'));
       final status = _statusFromString(a['status']);
       final appt = Appointment(a['id'], DateTime.parse(a['dateTime']), patient, doctor, status);
+      if (_hospital.appointments.any((apptExist) => apptExist.id == appt.id)) continue;
       _hospital.scheduleAppointment(appt);
     }
   }  
