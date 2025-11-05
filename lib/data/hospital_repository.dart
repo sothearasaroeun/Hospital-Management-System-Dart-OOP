@@ -47,23 +47,18 @@ class HospitalRepository {
       _hospital.addDoctor(doctor);
     }
 
-    for (var a in data['appointment'] ?? <Map>[]) {
-      final patient = _hospital._patients.firstWhere((p) => p.id == a['patientId'] as String);
-      final doctor = _hospital._doctors.firstWhere((d) => d.id == a['doctorId'] as String);
-      final appt = Appointment(
-        a['id'] as String, 
-        DateTime.parse(a['dataTime'] as String), 
-        patient, 
-        doctor,
-        _statusFromString (a['status'] as String),
-      );
+    for (var a in data['appointments'] ?? <Map>[]) {
+      final patient = _hospital.patients.firstWhere((p) => p.id == a['patientId'], orElse: () => throw Exception('Patient Not Found'));
+      final doctor = _hospital.doctors.firstWhere((d) => d.id == a['doctorId'], orElse: () => throw Exception('Doctor not found'));
+      final status = _statusFromString(a['status']);
+      final appt = Appointment(a['id'], DateTime.parse(a['dateTime']), patient, doctor, status);
       _hospital.scheduleAppointment(appt);
     }
   }  
 
   Future<void> save() async{
     final data = {
-      'patients': _hospital._patients.map((p) => {
+      'patients': _hospital.patients.map((p) => {
         'id': p.id, 
         'name': p.name,
         'phoneNumber': p.phoneNumber,
@@ -71,7 +66,7 @@ class HospitalRepository {
         'dob': p.dob.toIso8601String(),
         'gender': p.gender.name,
       }).toList(),
-      'doctors': _hospital._doctors.map((d) => {
+      'doctors': _hospital.doctors.map((d) => {
         'id': d.id, 
         'name': d.name,
         'phoneNumber': d.phoneNumber,
@@ -79,28 +74,26 @@ class HospitalRepository {
         'dob': d.dob.toIso8601String(),
         'gender': d.gender.name,
       }).toList(),
-      'appointments': _hospital._appointments.map((a) => {
+      'appointments': _hospital.appointments.map((a) => {
         'id': a.id, 
         'dateTime': a.dateTime.toIso8601String(),
-        'patirntId': a.patient.id,
+        'patientId': a.patient.id,
         'doctorId': a.doctor.id,
-        'appointmentStatus': a.appointmentStatus.name,
-      }).toList(),
+        'status': a.status.name,      
+        }).toList(),
     };
     await File(_filePath).writeAsString(jsonEncode(data));
   }
 
   //AI Generated
   Gender _genderFromString(String s){
-    return Gender.values.firstWhere(
-      (g) => g.name == s,
+    return Gender.values.firstWhere((e) => e.name.toLowerCase() == s.toLowerCase(),
       orElse: () => Gender.preferNotToSay,
     );
   }
 
   AppointmentStatus _statusFromString(String s){
-    return AppointmentStatus.values.firstWhere(
-      (st) => st.name == s,
+    return AppointmentStatus.values.firstWhere((e) => e.name.toLowerCase() == s.toLowerCase(),
       orElse: () => AppointmentStatus.scheduled,
     );
   }
