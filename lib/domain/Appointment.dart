@@ -1,6 +1,6 @@
 import 'patient.dart';
 import 'doctor.dart';
-enum AppointmentStatus {scheduled, rescheduled, canceled, completed, noShow}
+enum AppointmentStatus {scheduled, canceled, completed}
 
 class Appointment{
   final String _id;
