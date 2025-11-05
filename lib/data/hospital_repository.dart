@@ -82,6 +82,7 @@ class HospitalRepository {
         'status': a.status.name,      
         }).toList(),
     };
+    final encoder = JsonEncoder.withIndent(' ');
     await File(_filePath).writeAsString(jsonEncode(data));
   }
 
