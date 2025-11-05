@@ -1,0 +1,61 @@
+{
+  "patients": [
+    {
+      "id": "P001",
+      "name": "Bunleap",
+      "phoneNumber": "12345678",
+      "email": "leap@gmail.com",
+      "dob": "2005-11-11T00:00:00.000",
+      "gender": "male"
+    },
+    {
+      "id": "P002",
+      "name": "Lala",
+      "phoneNumber": "234567890",
+      "email": "la@gmail.com",
+      "dob": "2000-11-01T00:00:00.000",
+      "gender": "female"
+    }
+  ],
+  "doctors": [
+    {
+      "id": "D001",
+      "name": "Dr. Sotheara",
+      "phoneNumber": "87654321",
+      "email": "ra@gmail.com",
+      "dob": "2005-12-15T00:00:00.000",
+      "gender": "female"
+    },
+    {
+      "id": "D002",
+      "name": "Dr. Ronan",
+      "phoneNumber": "0987654321",
+      "email": "ronan@gmail.com",
+      "dob": "1999-11-11T00:00:00.000",
+      "gender": "male"
+    }
+  ],
+  "appointments": [
+    {
+      "id": "A001",
+      "dateTime": "2025-11-11T10:00:00.000",
+      "patientId": "P001",
+      "doctorId": "D001",
+      "status": "scheduled"
+    },
+    {
+      "id": "A002",
+      "dateTime": "2025-11-11T11:00:00.000",
+      "patientId": "P001",
+      "doctorId": "D002",
+      "status": "scheduled"
+    },
+    {
+      "id": "A003",
+      "dateTime": "2025-11-10T10:00:00.000",
+      "patientId": "P002",
+      "doctorId": "D002",
+      "status": "scheduled"
+    }
+  ]
+}
