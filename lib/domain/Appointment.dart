@@ -15,9 +15,13 @@ class Appointment{
   DateTime get dateTime => _dateTime;
   Patient get patient => _patient;
   Doctor get doctor => _doctor;
-  AppointmentStatus get appointmentStatus => _status;
+  AppointmentStatus get status => _status;
 
-  set appointmentStatus(AppointmentStatus status) => status = _status;
+  set status(AppointmentStatus status) => _status = status;
+
+  @override
+  String toString() => 
+    'Appointment(id: $_id, dateTime: $_dateTime, patient: ${_patient.id}, doctor: ${_doctor.id}, status: $_status)';
 
 }
 

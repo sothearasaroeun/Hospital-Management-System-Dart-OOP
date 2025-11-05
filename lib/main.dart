@@ -7,6 +7,9 @@ void main() async {
   final repo = HospitalRepository(hospital);
   await repo.load();
 
+  final ui = HospitalUI(hospital);
+  await ui.run();
+  
   await repo.save();
-  print('Data saved. Existed');
+  print('Data saved to hospital_data.json');
 }

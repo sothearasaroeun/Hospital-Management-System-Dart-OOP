@@ -7,6 +7,10 @@ class Hospital {
   final List<Doctor> _doctors = [];
   final List<Appointment> _appointments = [];
 
+  List<Patient> get patients => List.unmodifiable(_patients);
+  List<Doctor> get doctors => List.unmodifiable(_doctors);
+  List<Appointment> get appointments => List.unmodifiable(_appointments);
+
   void addPatient(Patient p) => _patients.add(p);
   void addDoctor(Doctor d) => _doctors.add(d);
 
