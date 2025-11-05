@@ -77,8 +77,13 @@ class HospitalUI{
       (e) => e.toString().split('.').last == g, 
       orElse: () => Gender.preferNotToSay,
       );
-    hospital.addPatient(Patient(id, name, phone, email, dob, gender));
-    print('Patient added successfully');
+    final patient = Patient(id, name, phone, email, dob, gender);
+    try {
+      hospital.addPatient(patient);
+      print('Patient added successfully');
+    } catch (e) {
+      print('Error: $e');
+    }
   }
 
   Future<void> _addDoctor() async {
@@ -101,7 +106,7 @@ class HospitalUI{
     );
     //AI Generate
     final Map<DateTime, WorkingHours> hours = {};
-    stdout.write('Enter working hours(date start end) or press Enter to skip: ');
+    stdout.write('Enter working hours(YYYY-MM-DD HH:MM HH:MM) or press Enter to skip: ');
     while (true) {
       final line = stdin.readLineSync();
       if (line == null || line.isEmpty) break;
@@ -120,8 +125,13 @@ class HospitalUI{
         stdout.write('Invalid date/time format. Try again: ');
       }
     }
-    hospital.addDoctor(Doctor(id, name, phone, email, dob, gender, hours));
-    print('Dcotor added successfully');
+    final doctor = Doctor(id, name, phone, email, dob, gender, {});
+    try {
+      hospital.addDoctor(doctor);
+      print('Doctor added successfully');
+    } catch (e) {
+      print('Error: $e');
+    }
   }
 
   Future<void> _scheduleAppointment() async {
@@ -140,22 +150,26 @@ class HospitalUI{
     orElse: () => throw Exception('Doctor not found'));
 
     final appt = Appointment(id, dt, patient, doctor, AppointmentStatus.scheduled);
-    hospital.scheduleAppointment(appt);
-    print('Appointment scheduled.');
+    try {
+      hospital.scheduleAppointment(appt);
+      print('Appointment scheduled successfully');
+    } catch (e) {
+      print('Error: $e');
+    }
   }
 
   Future<void> _viewPatientAppointments() async {
     stdout.write('Patient ID: '); 
     final id = stdin.readLineSync()!.trim();
     final appt = hospital.getAppointmentForPatient(id);
-    _printAppointment(appt);
+    _printAppointment(appt, isPatientView: true);
   }
 
   Future<void> _viewDoctorSchedule() async {
     stdout.write('Doctor ID: '); 
     final id = stdin.readLineSync()!.trim();
     final appt = hospital.getAppointmentForDoctor(id);
-    _printAppointment(appt);
+    _printAppointment(appt, isPatientView: false);
   }
 
   Future<void> _cancelAppointment() async {
@@ -165,13 +179,17 @@ class HospitalUI{
     print('Appoinment canceled');
   }
 
-  Future<void> _printAppointment(List<Appointment> appt) async {
+  Future<void> _printAppointment(List<Appointment> appt, {bool isPatientView = false}) async {
     if (appt.isEmpty){
       print('No appointments');
       return;
     }
     for (var a in appt){
-      print('→ ${a.id}: ${a.dateTime} | ${a.status}');
+      if(isPatientView){
+        print('→ ${a.id}: ${a.dateTime} | Doctor: ${a.doctor.id} | ${a.status}');
+      } else {
+        print('→ ${a.id}: ${a.dateTime} | Patient: ${a.patient.id} | ${a.status}');
+      }
     }
   }
 
