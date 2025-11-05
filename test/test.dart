@@ -1,22 +1,21 @@
-import 'dart:math';
-
 import 'package:hospital_management/domain/appointment.dart';
 import 'package:hospital_management/domain/doctor.dart';
 import 'package:hospital_management/domain/hospital.dart';
 import 'package:hospital_management/domain/patient.dart';
 import 'package:hospital_management/domain/staff.dart';
-import 'package:hospital_management/main.dart';
 import 'package:test/test.dart';
 
 void main() {
   group('Hospital Domain Tests', () {
     late Hospital hospital;
+    late Patient patient;
+    late Doctor doctor;
 
     setUp(() {
       hospital = Hospital();
       
-      var patient = Patient('P001', 'Bunleap', '123456789', 'leap@gmail.com', DateTime(2005, 05, 15), Gender.male);
-      var doctor = Doctor('D001', 'Dr. Sotheara', '123456789', 'ra@gmail.com', DateTime(2005, 12, 15), Gender.female, <DateTime, WorkingHours>{});
+      patient = Patient('P001', 'Bunleap', '123456789', 'leap@gmail.com', DateTime(2005, 05, 15), Gender.male);
+      doctor = Doctor('D001', 'Dr. Sotheara', '123456789', 'ra@gmail.com', DateTime(2005, 12, 15), Gender.female, <DateTime, WorkingHours>{});
 
       hospital.addPatient(patient);
       hospital.addDoctor(doctor);
@@ -48,7 +47,7 @@ void main() {
     });
 
     test('Polymorphism (Staff base class)', () {
-      final staff = doctor;
+      final Staff staff = doctor;
       expect(staff.role, 'Doctor');
       expect(staff.name, 'Dr. Sotheara');
       expect(staff.getWorkingHours, isEmpty);

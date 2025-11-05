@@ -99,18 +99,26 @@ class HospitalUI{
       (e) => e.toString().split('.').last == g, 
      orElse: () => Gender.preferNotToSay,
     );
-    print('Enter working hours(date start end) or press Enter to skip: ');
-    
+    //AI Generate
     final Map<DateTime, WorkingHours> hours = {};
+    stdout.write('Enter working hours(date start end) or press Enter to skip: ');
     while (true) {
       final line = stdin.readLineSync();
       if (line == null || line.isEmpty) break;
+      
       final parts = line.split(' ');
-      if (parts.length != 3) continue;
-      final date = DateTime.parse(parts[0]);
-      final start = DateTime.parse('${parts[0]} ${parts[1]}');
-      final end = DateTime.parse('${parts[0]} ${parts[2]}');
-      hours[date] = WorkingHours(start: start, end: end);
+      if (parts.length != 3) {
+        stdout.write('Invalid format. Please use (YYYY-MM-DD HH:MM HH:MM) or press Enter to skip:');
+        continue;
+      }
+      try {
+        final date = DateTime.parse(parts[0]);
+        final start = DateTime.parse('${parts[0]} ${parts[1]}');
+        final end = DateTime.parse('${parts[0]} ${parts[2]}');
+        hours[date] = WorkingHours(start: start, end: end);
+      } catch (e) {
+        stdout.write('Invalid date/time format. Try again: ');
+      }
     }
     hospital.addDoctor(Doctor(id, name, phone, email, dob, gender, hours));
     print('Dcotor added successfully');

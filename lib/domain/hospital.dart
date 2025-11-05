@@ -42,6 +42,7 @@ class Hospital {
     _appointments.remove(appt);
     appt.patient.removeAppointment(appt);
     appt.doctor.removeAppointment(appt);
+    appt.status = AppointmentStatus.canceled;
   }
 
 }

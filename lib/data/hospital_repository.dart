@@ -82,7 +82,10 @@ class HospitalRepository {
         'status': a.status.name,      
         }).toList(),
     };
-    await File(_filePath).writeAsString(jsonEncode(data));
+    //AI Generate
+    final encoder = JsonEncoder.withIndent('  ');
+    final prettyJson = encoder.convert(data);
+    await File(_filePath).writeAsString(prettyJson);
   }
 
   //AI Generated
