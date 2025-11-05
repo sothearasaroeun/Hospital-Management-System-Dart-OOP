@@ -8,6 +8,7 @@ class Hospital {
   final List<Appointment> _appointments = [];
 
   void addPatient(Patient p) => _patient.add(p);
+
   void addDoctor(Doctor d) => _doctor.add(d);
 
   List<Appointment> getAppointmentForPatient(Patient p) => p.appointments;

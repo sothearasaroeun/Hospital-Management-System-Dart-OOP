@@ -1,4 +1,5 @@
 import 'appointment.dart';
+import 'medicalRecord.dart';
 
 enum Gender {male, female, preferNotToSay}
 
@@ -11,28 +12,28 @@ class WorkingHours{
 
 class Doctor {
   final String _id;
-  final String _name;
+  final String name;
   final String _role;
   final String _phoneNumber;
   final String _email;
   final String _dob;
-  final Gender _gender;
+  final Gender gender;
   final Map<DateTime, WorkingHours> workingHours;
   final List<Appointment> _appointments = [];
+  final List<MedicalRecord> _medicalRecord = [];
   
-  Doctor(this._id, this._name, this._role, this._phoneNumber, this._dob, this._email, this._gender, this.workingHours);
+  Doctor(this._id, this.name, this._role, this._phoneNumber, this._dob, this._email, this.gender, this.workingHours);
   
   String get id => _id;
-  String get name => _name;
   String get role => _role;
   String get phoneNumber => _phoneNumber;
   String get dob => _dob;
   String get email => _email;
-  Gender get gender => _gender;
   Map<DateTime, WorkingHours> get getWorkingHours => workingHours;
   List<Appointment> get appointments => List.unmodifiable(_appointments);
 
   void addAppointment(Appointment appt) => _appointments.add(appt);
+  void addMedicalRecors(MedicalRecord medicalRecord) => _medicalRecord.add(medicalRecord);
 
   bool isAvailable(DateTime time){
     return !_appointments.any((a) => a.dateTime == time);
